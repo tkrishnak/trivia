@@ -11,6 +11,6 @@ public class TriviaController {
 
     @GetMapping("/api/v1/trivia")
     public List getAllQuestions(){
-        return
+        return new ArrayList();
     }
 }
