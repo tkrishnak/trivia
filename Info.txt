@@ -1,0 +1,44 @@
+The Project
+Use this dataset  (this repo provides multiple different ways to help seed the data) to create an open trivia API of your own.
+Beyond the usual TDD, REST, and PR processes, the only other requirements are outlined below.
+
+Must be a Spring web application with multiple profiles and an external SQL database (cannot be H2)
+Must persist data between restarts
+Must be full CRUDL
+Must facilitate generating a quiz of 10 randomly chosen questions
+Must have entity relationships
+Must be documented in some way
+All other details about the project are up to you.
+
+Tips
+Use NZOMBIES to increase test coverage
+Use refactor steps to make your code more compact and extensible
+
+
+# Database credentials
+DB_HOST=localhost:3306
+DB_NAME=gmdb
+DB_USER=gmdb_app
+DB_PWD=1234
+
+
+# Application props
+spring.application.name=gmdb-review-svc
+
+# Eureka Props
+eureka.client.enabled=${EUREKA_CLIENT_ENABLED}
+eureka.client.service-url.defaultZone=http://${EUREKA_HOST}/eureka
+eureka.client.register-with-eureka=true
+
+
+# Database Props
+spring.datasource.url=jdbc:mysql://${DB_HOST}/gmdb?useSSL=false&allowPublicKeyRetrieval=true
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PWD}
+# Not required anymore
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA Props
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.generate-ddl=false
+spring.jpa.database-platform=org.hibernate.dialect.MySQL57Dialect
