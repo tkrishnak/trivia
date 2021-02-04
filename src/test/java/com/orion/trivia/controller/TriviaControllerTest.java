@@ -1,5 +1,6 @@
 package com.orion.trivia.controller;
 
+import com.orion.trivia.entity.Answer;
 import com.orion.trivia.entity.Question;
 import com.orion.trivia.service.TriviaService;
 import org.junit.jupiter.api.Test;
@@ -60,6 +61,33 @@ public class TriviaControllerTest {
                 .andExpect(jsonPath("$[1].question").value(question2.getQuestion()));
         verify(triviaService, times(1)).getAllQuestions();
     }
+
+    @Test
+    public void getAllAnswersForAQuestion_Test() throws Exception {
+
+        Question question1 = Question.builder().question("What did Yankee Doodle stick in his cap?")
+                .timestamp(new Date()).build();
+        Answer answer1 = Answer.builder().text("Feather").correct(true).choice("A").build();
+        Answer answer2 = Answer.builder().text("Noodle soup").correct(false).choice("B").build();
+
+        List<Answer> answerList = new ArrayList<Answer>();
+        answerList.add(answer1);
+        answerList.add(answer2);
+        question1.setAnswers(answerList);
+
+        List<Question> expectedList = new ArrayList<Question>();
+        expectedList.add(question1);
+
+        when(triviaService.getAllQuestions()).thenReturn(expectedList);
+
+        mvc.perform(get("/api/v1/trivia"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].answers[0]").value(question1.getAnswers().get(0)))
+                .andExpect(jsonPath("$[0].answers[1]").value(question1.getAnswers().get(1)));
+        verify(triviaService, times(1)).getAllQuestions();
+    }
+
 
 
 }
