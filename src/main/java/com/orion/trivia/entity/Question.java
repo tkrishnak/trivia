@@ -14,13 +14,17 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
+@Table(name="question")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer question_num;
-    private Date timestamp;
+    private Long id;
+    private Long quiz_id;
+    private Long question_number;
     private String question;
+    private Date created_at;
 
-    @OneToMany
+    @OneToMany(cascade =CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumns({ @JoinColumn(name = "question_id", referencedColumnName = "ID") })
     private List<Answer> answers;
 }

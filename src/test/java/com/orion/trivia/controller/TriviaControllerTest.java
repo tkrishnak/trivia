@@ -44,9 +44,13 @@ public class TriviaControllerTest {
     public void getAllQuestions_TwoQuestion_Test() throws Exception {
 
         Question question1 = Question.builder().question("What did Yankee Doodle stick in his cap?")
-                .timestamp(new Date()).build();
+                .created_at(new Date())
+                .question_number(1L)
+                .quiz_id(1L).build();
         Question question2 = Question.builder().question("What word completes the phrase: “Everything but the kitchen”?")
-                .timestamp(new Date()).build();
+                .created_at(new Date())
+                .question_number(2L)
+                .quiz_id(1L).build();
 
         List<Question> expectedList = new ArrayList<Question>();
         expectedList.add(question1);
@@ -66,9 +70,11 @@ public class TriviaControllerTest {
     public void getAllAnswersForAQuestion_Test() throws Exception {
 
         Question question1 = Question.builder().question("What did Yankee Doodle stick in his cap?")
-                .timestamp(new Date()).build();
-        Answer answer1 = Answer.builder().text("Feather").correct(true).choice("A").build();
-        Answer answer2 = Answer.builder().text("Noodle soup").correct(false).choice("B").build();
+                .created_at(new Date())
+                .question_number(1L)
+                .quiz_id(1L).build();
+        Answer answer1 = Answer.builder().text("Feather").correct(true).choice("A").question_id(1L).build();
+        Answer answer2 = Answer.builder().text("Noodle soup").correct(false).choice("B").question_id(1L).build();
 
         List<Answer> answerList = new ArrayList<Answer>();
         answerList.add(answer1);
