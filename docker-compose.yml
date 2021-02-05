@@ -1,0 +1,23 @@
+version: "3"
+services:
+  mysqldb:
+    image: mysql
+    volumes:
+      - triviavolume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: notsecure
+      MYSQL_DATABASE: triviadb
+  trivia-app:
+    build: .
+    environment:
+      DB_HOST: mysqldb
+      DB_USER: root
+      DB_PASSWORD: notsecure
+      DB_NAME: triviadb
+    depends_on:
+      - mysqldb
+    ports:
+      - "8080:8080"
+
+volumes:
+  triviavolume: {}
